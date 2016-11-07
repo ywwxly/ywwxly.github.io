@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016/11 | 因为我许了愿</title>
+  <title>因为我许了愿</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="我的个人博客">
 <meta property="og:type" content="website">
 <meta property="og:title" content="因为我许了愿">
-<meta property="og:url" content="http://yoursite.com/archives/2016/11/index.html">
+<meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="因为我许了愿">
 <meta property="og:description" content="我的个人博客">
 <meta name="twitter:card" content="summary">
@@ -27,6 +27,9 @@
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
+    
+    
+  
   
       <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   
@@ -38,14 +41,23 @@
           rootUrl: '/',
           fancybox: true,
           animate: true,
-          isHome: false,
+          isHome: true,
           isPost: false,
-          isArchive: true,
+          isArchive: false,
           isTag: false,
           isCategory: false,
           open_in_new: false
       }
   </script>
+  <style type="text/css">
+  .guanyu{
+    text-align: center;
+  }
+  .me hover{
+    color: #2588EA
+
+  }
+  </style>
 </head>
 <body>
   <div id="container">
@@ -60,7 +72,7 @@
         </a>
 
         <hgroup>
-          <h1 class="header-author"><a href="/" title="Hi Mate">ywwxly</a></h1>
+          <h1 class="header-author me"><a href="/" title="Hi Mate">ywwxly</a></h1>
         </hgroup>
 
         
@@ -209,48 +221,62 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/11/06/test/" class="archive-article-date">
-      <time datetime="2016-11-06T14:10:22.000Z" itemprop="datePublished">11-06</time>
+    <div class="article-meta">
+      <a href="/2016/11/06/test/" class="article-date">
+      <time datetime="2016-11-06T14:10:22.000Z" itemprop="datePublished">2016-11-06</time>
 </a>
-        </div>
-         
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/06/test/">启程</a>
+      <a class="article-title" href="/2016/11/06/test/">关于</a>
     </h1>
   
 
-        <div class="article-info info-on-archive">
-          
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </header>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 class="guanyu">关于</h2><p>  ywwxly的github上得个人站点，使用hexo主题。在此记录我的成长及增进自我。</p>
 
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
 </div>
       <footer id="footer">
     <div class="outer">
@@ -315,17 +341,6 @@
         };
     })
 </script>
-
-    <button class="hide-labels">TAG 开关</button>
-    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js">
-    </script>
-    <script>
-        $(document).ready(function() {
-            $("button").click(function() {
-                $(".article-info").toggle(200);
-            });
-        });
-    </script>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
