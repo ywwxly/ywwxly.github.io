@@ -49,6 +49,11 @@
           open_in_new: false
       }
   </script>
+  <style type="text/css">
+  .header-color:hover{
+    color: #1E90FF;
+  }
+  </style>
 </head>
 <body>
   <div id="container">
@@ -63,7 +68,7 @@
         </a>
 
         <hgroup>
-          <h1 class="header-author"><a href="/" title="Hi Mate">ywwxly</a></h1>
+          <h1 class="header-author header-color"><a href="/" title="Hi Mate">ywwxly</a></h1>
         </hgroup>
 
         
@@ -258,7 +263,64 @@
   </div>
   
 </article>
+<article id="post-JavaScript-Number" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/06/JavaScript-Number/" class="article-date">
+      <time datetime="2016-11-06T14:10:22.000Z" itemprop="datePublished">2016-11-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/06/JavaScript-Number/">JavaScript的数值转换和转义序列</a>
+    </h1>
+  
 
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="Number-函数："><a href="#Number-函数：" class="headerlink" title="Number()函数："></a>Number()函数：</h3><pre><code>- Boolean值：true,false分别转换为1,0。
+- 数字值：简单传入返回。
+- 是null值：返回0。
+- 是undefined：返回NaN。
+- 字符串：
+ +只包含数字的，忽视前导0，转换为十进制。
+ +包含有效浮点格式：转换对应浮点数值（同样忽视前导0）。
+ +包含十六进制格式：转换为相同大小十进制。
+ +空字符串：转换为0。
+ +包含除以上字符外：转换为NaN。
+</code></pre><h3 id="ParsetInt-函数："><a href="#ParsetInt-函数：" class="headerlink" title="ParsetInt()函数："></a>ParsetInt()函数：</h3><pre><code>- 第一个字符不是数字或正负号，返回NaN。继续解析，直到遇到一个非数字字符。
+-十进制，八进制（es3可以，ES5忽视前导0，十六进制（0x）开头。可以添加参数，例如：parsetInt(&quot;AF&quot;,16) //175。
+</code></pre><h3 id="parsetFloat-函数"><a href="#parsetFloat-函数" class="headerlink" title="parsetFloat()函数:"></a>parsetFloat()函数:</h3><pre><code>- 同上个区别：第一个小数点有效。
+- 始终忽视前导0。
+-只解析十进制。
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
 
 
 
