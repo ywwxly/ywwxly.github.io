@@ -93,7 +93,6 @@
                     clearphoto();
                 }
             }
-            window.addEventListener("load", startup, false);
         })();
         var video = document.querySelector('video');
         var constraints = window.constraints = {
@@ -135,6 +134,7 @@
                 console.error(error);
             }
         }
+        startup();
     }
 </script>
 
