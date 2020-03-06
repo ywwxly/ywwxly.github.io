@@ -89,10 +89,10 @@
                     video.srcObject = stream;
                     video.play();
                     //创建一个音频环境对像
-                    var context = new AudioContext();
+                    var context = new(window.AudioContext || window.webkitAudioContext)();
 
                     //将声音输入这个对像
-                    var audioInput = context.createMediaStreamSources(stream);
+                    var audioInput = context.createMediaStreamSource(stream);
 
                     //设置音量节点
                     volume = context.createGain();
