@@ -62,7 +62,7 @@
 
         function startup() {
             video = document.getElementById('video');
-            audio = document.getElementById('audio');
+
             canvas = document.getElementById('canvas');
             photo = document.getElementById('photo');
             startbutton = document.getElementById('startbutton');
@@ -72,8 +72,13 @@
                     audio: false
                 })
                 .then(function (stream) {
-                    audio.srcObject = stream;
-                    audio.play();
+                    var videoTracks = stream.getVideoTracks();
+                    var audioTracks = stream.getAudioTracks();
+                    console.log('Got stream with constraints:', constraints);
+                    console.log(videoTracks[0]);
+                    console.log(audioTracks[0]);
+                    document.querySelector('#v').innerHTML = 'Using video device: ' + JSON.stringify(
+                        videoTracks[0]);
                     video.srcObject = stream;
                     video.play();
                 })
@@ -124,23 +129,27 @@
     })();
     var video = document.querySelector('video');
     var constraints = window.constraints = {
-        audio: false,
-        video: true
+        audio: true,
+        video: false
     };
     var errorElement = document.querySelector('#errorMsg');
 
     navigator.mediaDevices.getUserMedia(constraints)
         .then(function (stream) {
+            var audio = document.getElementById('audio');
             var videoTracks = stream.getVideoTracks();
             var audioTracks = stream.getAudioTracks();
             console.log('Got stream with constraints:', constraints);
-            console.log(videoTracks);
-            console.log(audioTracks);
-            document.querySelector('#v').innerHTML = 'Using video device: ' + JSON.stringify(videoTracks[0]);
+            console.log(videoTracks[0]);
+            console.log(audioTracks[0]);
+
             document.querySelector('#a').innerHTML = 'Using video device: ' + JSON.stringify(audioTracks[0]);
             stream.onended = function () {
-                console.log('Stream ended');
+                onsole.log(':11', constraints);
+
             };
+            audio.srcObject = stream;
+            audio.play();
             // window.stream = stream; // make variable available to browser console
             // video.srcObject = stream;
         })
