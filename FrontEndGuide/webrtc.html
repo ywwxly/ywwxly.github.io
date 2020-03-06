@@ -50,8 +50,10 @@
             });
         }
     }
+    window.onload = function () {
+        q();
+    }
 
-    q();
 
     function q() {
         var errorElement = document.querySelector('#errorMsg');
@@ -74,7 +76,7 @@
 
             navigator.mediaDevices.getUserMedia({
                     video: true,
-                    audio: true
+                    audio: false
                 })
                 .then(function (stream) {
                     var videoTracks = stream.getVideoTracks();
