@@ -49,7 +49,10 @@
             });
         }
     }
-    (function () {
+
+    q();
+
+    function q() {
         var errorElement = document.querySelector('#errorMsg');
         var width = 320; // We will scale the photo width to this
         var height = 0; // This will be computed based on the input stream
@@ -81,6 +84,8 @@
                     document.querySelector('#v').innerHTML = 'Using video device: ' +
                         videoTracks[0].label;
                     document.querySelector('#a').innerHTML = 'Using audio device: ' + audioTracks[0].label;
+                    console.log(stream);
+
                     video.srcObject = stream;
                     video.play();
                     //创建一个音频环境对像
@@ -170,7 +175,7 @@
             }
         }
         startup();
-    })();
+    }
     var video = document.querySelector('video');
     var constraints = window.constraints = {
         audio: true,
