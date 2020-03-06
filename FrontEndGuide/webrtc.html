@@ -75,8 +75,8 @@
             startbutton = document.getElementById('startbutton');
 
             navigator.mediaDevices.getUserMedia({
-                    video: false,
-                    audio: true
+                    video: true,
+                    audio: false
                 })
                 .then(function (stream) {
                     var videoTracks = stream.getVideoTracks();
@@ -90,7 +90,7 @@
                         // document.querySelector('#a').innerHTML = 'Using audio device: ' + audioTracks[0].label;
                         console.log(stream);
                     } catch (error) {
-                        errorElement.innerHTML = ("!!!!!! " + err);
+                        errorElement.innerHTML = ("!!!!!! " + error);
                     }
 
 
