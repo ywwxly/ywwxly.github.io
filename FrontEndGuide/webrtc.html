@@ -10,6 +10,8 @@
 
 <body>
     <div id="errorMsg"></div>
+    <div id="v"></div>
+    <div id="a"></div>
     <div class="camera">
         <video id="video">Video stream not available.</video>
         <button id="startbutton">Take photo</button>
@@ -22,114 +24,116 @@
 
 </body>
 <script>
-    (function () {
-        var width = 320; // We will scale the photo width to this
-        var height = 0; // This will be computed based on the input stream
+    function q() {
+        (function () {
+            var width = 320; // We will scale the photo width to this
+            var height = 0; // This will be computed based on the input stream
 
-        var streaming = false;
+            var streaming = false;
 
-        var video = null;
-        var canvas = null;
-        var photo = null;
-        var startbutton = null;
+            var video = null;
+            var canvas = null;
+            var photo = null;
+            var startbutton = null;
 
-        function startup() {
-            video = document.getElementById('video');
-            canvas = document.getElementById('canvas');
-            photo = document.getElementById('photo');
-            startbutton = document.getElementById('startbutton');
+            function startup() {
+                video = document.getElementById('video');
+                canvas = document.getElementById('canvas');
+                photo = document.getElementById('photo');
+                startbutton = document.getElementById('startbutton');
 
-            navigator.mediaDevices.getUserMedia({
-                    video: true,
-                    audio: false
-                })
-                .then(function (stream) {
-                    video.srcObject = stream;
-                    video.play();
-                })
-                .catch(function (err) {
-                    console.log("An error occured! " + err);
-                });
-            video.addEventListener('canplay', function (ev) {
-                if (!streaming) {
-                    height = video.videoHeight / (video.videoWidth / width);
+                navigator.mediaDevices.getUserMedia({
+                        video: true,
+                        audio: false
+                    })
+                    .then(function (stream) {
+                        video.srcObject = stream;
+                        video.play();
+                    })
+                    .catch(function (err) {
+                        console.log("An error occured! " + err);
+                    });
+                video.addEventListener('canplay', function (ev) {
+                    if (!streaming) {
+                        height = video.videoHeight / (video.videoWidth / width);
 
-                    video.setAttribute('width', width);
-                    video.setAttribute('height', height);
-                    canvas.setAttribute('width', width);
-                    canvas.setAttribute('height', height);
-                    streaming = true;
-                }
-            }, false);
-            startbutton.addEventListener('click', function (ev) {
-                takepicture();
-                ev.preventDefault();
-            }, false);
-            clearphoto();
-        }
+                        video.setAttribute('width', width);
+                        video.setAttribute('height', height);
+                        canvas.setAttribute('width', width);
+                        canvas.setAttribute('height', height);
+                        streaming = true;
+                    }
+                }, false);
+                startbutton.addEventListener('click', function (ev) {
+                    takepicture();
+                    ev.preventDefault();
+                }, false);
+                clearphoto();
+            }
 
-        function clearphoto() {
-            var context = canvas.getContext('2d');
-            context.fillStyle = "#AAA";
-            context.fillRect(0, 0, canvas.width, canvas.height);
-
-            var data = canvas.toDataURL('image/png');
-            photo.setAttribute('src', data);
-        }
-
-        function takepicture() {
-            var context = canvas.getContext('2d');
-            if (width && height) {
-                canvas.width = width;
-                canvas.height = height;
-                context.drawImage(video, 0, 0, width, height);
+            function clearphoto() {
+                var context = canvas.getContext('2d');
+                context.fillStyle = "#AAA";
+                context.fillRect(0, 0, canvas.width, canvas.height);
 
                 var data = canvas.toDataURL('image/png');
                 photo.setAttribute('src', data);
-            } else {
-                clearphoto();
             }
-        }
-        window.addEventListener("load", startup, false);
-    })();
-    var video = document.querySelector('video');
-    var constraints = window.constraints = {
-        audio: true,
-        video: true
-    };
-    var errorElement = document.querySelector('#errorMsg');
 
-    navigator.mediaDevices.getUserMedia(constraints)
-        .then(function (stream) {
-            var videoTracks = stream.getVideoTracks();
-            var audioTracks = stream.getAudioTracks();
-            console.log('Got stream with constraints:', constraints);
-            console.log(videoTracks);
+            function takepicture() {
+                var context = canvas.getContext('2d');
+                if (width && height) {
+                    canvas.width = width;
+                    canvas.height = height;
+                    context.drawImage(video, 0, 0, width, height);
 
-            console.log(audioTracks);
-            errorElement.innerHTML = 'Using video device: ' + videoTracks[0].label;
-            stream.onended = function () {
-                console.log('Stream ended');
-            };
-            // window.stream = stream; // make variable available to browser console
-            // video.srcObject = stream;
-        })
-        .catch(function (error) {
-            if (error.name === 'ConstraintNotSatisfiedError') {
-                errorMsg('The resolution ' + constraints.video.width.exact + 'x' +
-                    constraints.video.width.exact + ' px is not supported by your device.');
-            } else if (error.name === 'PermissionDeniedError') {
-                errorMsg('Permissions have not been granted to use your camera and ' +
-                    'microphone, you need to allow the page access to your devices in ' +
-                    'order for the demo to work.');
+                    var data = canvas.toDataURL('image/png');
+                    photo.setAttribute('src', data);
+                } else {
+                    clearphoto();
+                }
             }
-            errorMsg('getUserMedia error: ' + error.name, error);
-        });
+            window.addEventListener("load", startup, false);
+        })();
+        var video = document.querySelector('video');
+        var constraints = window.constraints = {
+            audio: true,
+            video: true
+        };
+        var errorElement = document.querySelector('#errorMsg');
 
-    function errorMsg(msg, error) {
-        errorElement.innerHTML += '<p>' + msg + '</p>';
-        if (typeof error !== 'undefined') {
-            console.error(error);
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function (stream) {
+                var videoTracks = stream.getVideoTracks();
+                var audioTracks = stream.getAudioTracks();
+                console.log('Got stream with constraints:', constraints);
+                console.log(videoTracks);
+                console.log(audioTracks);
+                document.querySelector('#v').innerHTML = 'Using video device: ' + JSON.stringify(videoTracks);
+                document.querySelector('#a').innerHTML = 'Using video device: ' + JSON.stringify(audioTracks);
+                stream.onended = function () {
+                    console.log('Stream ended');
+                };
+                // window.stream = stream; // make variable available to browser console
+                // video.srcObject = stream;
+            })
+            .catch(function (error) {
+                if (error.name === 'ConstraintNotSatisfiedError') {
+                    errorMsg('The resolution ' + constraints.video.width.exact + 'x' +
+                        constraints.video.width.exact + ' px is not supported by your device.');
+                } else if (error.name === 'PermissionDeniedError') {
+                    errorMsg('Permissions have not been granted to use your camera and ' +
+                        'microphone, you need to allow the page access to your devices in ' +
+                        'order for the demo to work.');
+                }
+                errorMsg('getUserMedia error: ' + error.name, error);
+            });
+
+        function errorMsg(msg, error) {
+            errorElement.innerHTML += '<p>' + msg + "|" + error + '</p>';
+            if (typeof error !== 'undefined') {
+                console.error(error);
+            }
         }
     }
 </script>
