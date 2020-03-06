@@ -69,7 +69,7 @@
 
         function startup() {
             video = document.getElementById('video');
-
+            audio = document.getElementById('audio');
             canvas = document.getElementById('canvas');
             photo = document.getElementById('photo');
             startbutton = document.getElementById('startbutton');
@@ -79,18 +79,20 @@
                     audio: false
                 })
                 .then(function (stream) {
-                    var videoTracks = stream.getVideoTracks();
+                    // var videoTracks = stream.getVideoTracks();
                     var audioTracks = stream.getAudioTracks();
                     console.log('Got stream with constraints:', constraints);
-                    console.log(videoTracks[0]);
+                    // console.log(videoTracks[0]);
                     console.log(audioTracks[0]);
-                    document.querySelector('#v').innerHTML = 'Using video device: ' +
-                        videoTracks[0].label;
+                    // document.querySelector('#v').innerHTML = 'Using video device: ' +
+                    //     videoTracks[0].label;
                     document.querySelector('#a').innerHTML = 'Using audio device: ' + audioTracks[0].label;
                     console.log(stream);
 
-                    video.srcObject = stream;
-                    video.play();
+                    // video.srcObject = stream;
+                    // video.play();
+                    audio.srcObject = stream;
+                    audio.play();
                     //创建一个音频环境对像
                     var audioContext = new(window.AudioContext || window.webkitAudioContext)();
 
