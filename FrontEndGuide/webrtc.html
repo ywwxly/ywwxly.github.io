@@ -70,7 +70,7 @@
 
             navigator.mediaDevices.getUserMedia({
                     video: true,
-                    audio: false
+                    audio: true
                 })
                 .then(function (stream) {
                     var videoTracks = stream.getVideoTracks();
