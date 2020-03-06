@@ -114,7 +114,7 @@
                     }
                 })
                 .catch(function (err) {
-                    console.log("An error occured! " + err);
+                    errorElement.innerHTML = ("An error occured! " + err);
                 });
             video.addEventListener('canplay', function (ev) {
                 if (!streaming) {
