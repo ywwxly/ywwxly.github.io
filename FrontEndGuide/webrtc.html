@@ -50,6 +50,7 @@
         }
     }
     (function () {
+        var errorElement = document.querySelector('#errorMsg');
         var width = 320; // We will scale the photo width to this
         var height = 0; // This will be computed based on the input stream
 
@@ -77,8 +78,9 @@
                     console.log('Got stream with constraints:', constraints);
                     console.log(videoTracks[0]);
                     console.log(audioTracks[0]);
-                    document.querySelector('#v').innerHTML = 'Using video device: ' + JSON.stringify(
-                        videoTracks[0]);
+                    document.querySelector('#v').innerHTML = 'Using video device: ' +
+                        videoTracks[0].label;
+                    document.querySelector('#a').innerHTML = 'Using audio device: ' + audioTracks[0].label;
                     video.srcObject = stream;
                     video.play();
                 })
@@ -91,11 +93,15 @@
 
                     video.setAttribute('width', width);
                     video.setAttribute('height', height);
+
                     canvas.setAttribute('width', width);
                     canvas.setAttribute('height', height);
                     streaming = true;
                 }
             }, false);
+            video.onvolumechange = function () {
+                alert("音量已改变");
+            };
             startbutton.addEventListener('click', function (ev) {
                 takepicture();
                 ev.preventDefault();
@@ -130,47 +136,47 @@
     var video = document.querySelector('video');
     var constraints = window.constraints = {
         audio: true,
-        video: false
+        video: true
     };
-    var errorElement = document.querySelector('#errorMsg');
+    // 
 
-    navigator.mediaDevices.getUserMedia(constraints)
-        .then(function (stream) {
-            var audio = document.getElementById('audio');
-            var videoTracks = stream.getVideoTracks();
-            var audioTracks = stream.getAudioTracks();
-            console.log('Got stream with constraints:', constraints);
-            console.log(videoTracks[0]);
-            console.log(audioTracks[0]);
+    // navigator.mediaDevices.getUserMedia(constraints)
+    //     .then(function (stream) {
+    //         var audio = document.getElementById('audio');
+    //         var videoTracks = stream.getVideoTracks();
+    //         var audioTracks = stream.getAudioTracks();
+    //         console.log('Got stream with constraints:', constraints);
+    //         console.log(videoTracks[0]);
+    //         console.log(audioTracks[0]);
 
-            document.querySelector('#a').innerHTML = 'Using video device: ' + JSON.stringify(audioTracks[0]);
-            stream.onended = function () {
-                onsole.log(':11', constraints);
+    //         document.querySelector('#a').innerHTML = 'Using audio device: ' + audioTracks[0].label;
+    //         stream.onended = function () {
+    //             onsole.log(':11', constraints);
 
-            };
-            audio.srcObject = stream;
-            audio.play();
-            // window.stream = stream; // make variable available to browser console
-            // video.srcObject = stream;
-        })
-        .catch(function (error) {
-            if (error.name === 'ConstraintNotSatisfiedError') {
-                errorMsg('The resolution ' + constraints.video.width.exact + 'x' +
-                    constraints.video.width.exact + ' px is not supported by your device.');
-            } else if (error.name === 'PermissionDeniedError') {
-                errorMsg('Permissions have not been granted to use your camera and ' +
-                    'microphone, you need to allow the page access to your devices in ' +
-                    'order for the demo to work.');
-            }
-            errorMsg('getUserMedia error: ' + error.name, error);
-        });
+    //         };
+    //         audio.srcObject = stream;
+    //         audio.play();
+    //         // window.stream = stream; // make variable available to browser console
+    //         // video.srcObject = stream;
+    //     })
+    //     .catch(function (error) {
+    //         if (error.name === 'ConstraintNotSatisfiedError') {
+    //             errorMsg('The resolution ' + constraints.video.width.exact + 'x' +
+    //                 constraints.video.width.exact + ' px is not supported by your device.');
+    //         } else if (error.name === 'PermissionDeniedError') {
+    //             errorMsg('Permissions have not been granted to use your camera and ' +
+    //                 'microphone, you need to allow the page access to your devices in ' +
+    //                 'order for the demo to work.');
+    //         }
+    //         errorMsg('getUserMedia error: ' + error.name, error);
+    //     });
 
-    function errorMsg(msg, error) {
-        errorElement.innerHTML += '<p>' + msg + "|" + error + '</p>';
-        if (typeof error !== 'undefined') {
-            console.error(error);
-        }
-    }
+    // function errorMsg(msg, error) {
+    //     errorElement.innerHTML += '<p>' + msg + "|" + error + '</p>';
+    //     if (typeof error !== 'undefined') {
+    //         console.error(error);
+    //     }
+    // }
 </script>
 
 </html>
